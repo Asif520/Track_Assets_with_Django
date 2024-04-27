@@ -12,7 +12,7 @@ class User(AbstractUser):
 
 
 class Subscriber(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
 
 
@@ -22,9 +22,13 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+class Employee(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete = models.SET_NULL, null=True)
+
 class Company_Assets(models.Model):
     company = models.ForeignKey(Company, on_delete = models.SET_NULL, null=True)
-    employee = models.CharField(max_length=200)
+    employee = models.ForeignKey(Employee, on_delete = models.SET_NULL, null=True)
     device = models.CharField(max_length=100,null=True, blank=True)
     condition_choices = [
         ('Good', 'Good'),

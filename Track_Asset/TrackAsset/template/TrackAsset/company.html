@@ -1,0 +1,96 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+
+<main class="layout layout--3">
+  <div class="container">
+    <div class="topics">
+      <div class="topics__header">
+        <h2>Employees</h2>
+      </div>
+      <ul class="topics__list">
+        <li>
+          <a href="/" class="active">All <span>24</span></a>
+        </li>
+        {% for company_asset in company_assets %}
+          {% if company_asset.company.name == company.name %}
+        <li>
+          <a href="/">{{company_asset.employee}}
+          </a>
+        </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <a class="btn btn--link" href="topics.html">
+        More
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+          <title>chevron-down</title>
+          <path d="M16 21l-13-13h-3l16 16 16-16h-3l-13 13z"></path>
+        </svg>
+      </a>
+      <a class="btn btn--link" href="#">
+          <p class="add">+</p> Add Employee
+      </a>
+    </div>
+    <!-- Room List Start -->
+    <div class="roomList">
+      <div class="roomList__header">
+        <div>
+          <h2>My Company</h2>
+          <p></p>
+        </div>
+      </div>
+      <div class="roomListRoom">
+        <div class="roomListRoom__content">
+          <a> {{ company.name }} </a>
+        </div>
+        <div class="track_table">
+          <table border="1">
+            <thead>
+              <tr>
+                  <th>Employee Name</th>
+                  <th>Device Given</th>
+                  <th>CheckOut Time, Device Condition</th>
+                  <th>Returned Time, Device Condition</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {% for company_asset in company_assets %}
+                {% if company_asset.company.name == company.name %}
+              <td>{{company_asset.employee}}</td>
+              <td>{{company_asset.device}}</td>
+              <td>{{company_asset.checked_out}},{{company_asset.condition_when_checked_out}}</td>
+              <td>{{company_asset.returned_in}},{{company_asset.condition_when_returned}}</td>
+            </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <!-- Room List End --> 
+    <div class="activities">
+      <div class="activities__header">
+        <h2>Subscriber</h2>
+      </div>
+      <div class="activities__box">
+        <div class="activities__boxHeader roomListRoom__header">
+          <a href="profile.html" class="roomListRoom__author">
+            <p>
+              sulamita_ivy
+            </p>
+          </a>
+          <div class="roomListRoom__actions">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
