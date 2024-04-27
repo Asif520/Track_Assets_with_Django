@@ -16,6 +16,8 @@ class Subscriber(models.Model):
 
 
 
+
+
 class Company(models.Model):
     name = models.CharField(max_length=200)
 
@@ -23,10 +25,15 @@ class Company(models.Model):
         return self.name
 
 class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.OneToOneField(User, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete = models.SET_NULL, null=True)
 
+    def __str__(self):
+        return self.name
+
+
 class Company_Assets(models.Model):
+    user = models.ForeignKey(User, on_delete = models.SET_NULL, null=True)
     company = models.ForeignKey(Company, on_delete = models.SET_NULL, null=True)
     employee = models.ForeignKey(Employee, on_delete = models.SET_NULL, null=True)
     device = models.CharField(max_length=100,null=True, blank=True)
